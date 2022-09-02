@@ -1,8 +1,9 @@
 import axios from "axios";
-import { Parser, StoredContent, StoredTag } from "../../../types";
+import { Parser, SimpleTag, StoredContent } from "../../../types";
 import { capitalize, map, toPairs } from "lodash";
 import { logger } from "../../../utils/logger";
 import { sleep } from "../../../utils/sleep";
+import { Tag } from "@prisma/client";
 const API_URL = "https://api.mangadex.org";
 const COVER_URL = "https://uploads.mangadex.org/covers";
 const ADULT_TAGS = [
@@ -44,11 +45,10 @@ const getResultsForTag = async (
         .fileName ?? "";
     const coverImage = `${COVER_URL}/${entry.id}/${fileName}`;
 
-    const tags: StoredTag[] = attributes.tags.map((v: any): StoredTag => {
+    const tags: any[] = attributes.tags.map((v: any) => {
       return {
         label: v.attributes.name.en,
         id: v.id,
-        adult: ADULT_TAGS.includes(v.id),
       };
     });
 
@@ -116,33 +116,17 @@ const getResultsForTag = async (
 
 export const MangaDex: Parser = {
   sourceId: SOURCE_ID,
-  getResults: async (callback) => {
-    const PAGE_LIMIT = 20;
-    let iteration = 0;
-
-    // Get All Tags
-    const tags: string[] = [];
+  getTags: async () => {
     const response = await axios.get(API_URL + "/manga/tag");
-    const mapped: string[] = response.data.data.map((v: any) => v.id);
-    tags.push(...mapped);
-
-    // Loop through
-    for (const tag of tags) {
-      iteration = 0;
-      logger.debug(`Working on Tag: ${tag}`);
-      while (iteration <= PAGE_LIMIT) {
-        try {
-          const result = await getResultsForTag(iteration, tag);
-          callback(result);
-          await sleep(250); // hacky rate limit
-          iteration++;
-        } catch (err: any) {
-          logger.error(err.message);
-          break;
-        }
-      }
-    }
-
-    logger.info(`\n\nCompleted ${SOURCE_ID}`);
+    const mapped: SimpleTag[] = response.data.data.map(
+      (v: any): SimpleTag => ({
+        label: v.attributes.name.en,
+        id: v.id,
+      })
+    );
+    return mapped;
+  },
+  getResults: async (tag, page) => {
+    return await getResultsForTag(page, tag);
   },
 };

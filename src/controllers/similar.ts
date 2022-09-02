@@ -6,7 +6,7 @@ export const handleGetSimilar: RequestHandler = async (req, res, next) => {
   const sourceId = req.params.source as string;
   const contentId = req.params.content as string;
 
-  const page = parseInt(req.query.page as string) || 1;
+  const page = parseInt(req.params.page as string) || 1;
   try {
     const results = await getSimilarTitles(
       sourceId,

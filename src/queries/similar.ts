@@ -16,7 +16,7 @@ FROM
          CT."contentId",
          CAST(COUNT(*) AS FLOAT) / CAST(${tagIds.length} AS FLOAT) AS pct 
       FROM
-         "ContentTag" CT 
+         tags CT 
          JOIN
             contents c 
             ON c."sourceId" = CT."sourceId" 

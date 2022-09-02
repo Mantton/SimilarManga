@@ -1,1 +1,1 @@
-export * as content from "./content";
+export * as ContentRep from "./content";

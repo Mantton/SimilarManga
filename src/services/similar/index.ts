@@ -17,14 +17,14 @@ export const getSimilarTitles = async (
       },
     },
     include: {
-      linkedTags: true,
+      tags: true,
     },
   });
 
   if (!content) throw new Error(ErrorMSG.ContentNotFound);
 
   // Get Tags
-  let tagIds = content.linkedTags.map((v) => v.tagId);
+  let tagIds = content.tags.map((v) => v.tagId);
 
   let offset = (page - 1) * 30;
 

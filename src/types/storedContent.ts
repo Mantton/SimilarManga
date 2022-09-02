@@ -3,18 +3,17 @@ export interface StoredContent {
   contentId: string;
   title: string;
   coverImage: string;
-  tags: StoredTag[];
+  tags: SimpleTag[];
   popularity: number;
-}
-
-export interface StoredTag {
-  label: string;
-  id: string;
-  adult: boolean;
 }
 
 export interface Highlight extends StoredContent {
   pct: number;
+}
+
+export interface SimpleTag {
+  label: string;
+  id: string;
 }
 
 export interface Collection {
