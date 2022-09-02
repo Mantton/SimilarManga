@@ -1,0 +1,48 @@
+// Data Source
+datasource db {
+    provider = "postgres"
+    url      = env("DB_URI")
+}
+
+// Generator
+generator client {
+    provider        = "prisma-client-js"
+    previewFeatures = ["interactiveTransactions"]
+}
+
+// --- Content Data Models --- //
+model Content {
+    sourceId   String
+    contentId  String
+    coverImage String
+    title      String
+    popularity Int
+
+    linkedTags ContentTag[]
+
+    @@unique([sourceId, contentId], name: "id")
+    @@map("contents")
+}
+
+model Tag {
+    sourceId     String
+    tagId        String
+    label        String
+    adultContent Boolean @default(false)
+
+    linkedContents ContentTag[]
+
+    @@unique([sourceId, tagId], name: "id")
+    @@map("tags")
+}
+
+model ContentTag {
+    tagId     String
+    sourceId  String
+    contentId String
+
+    content Content @relation(fields: [sourceId, contentId], references: [sourceId, contentId])
+    tag     Tag     @relation(fields: [sourceId, tagId], references: [sourceId, tagId])
+
+    @@unique([tagId, sourceId, contentId], name: "id")
+}

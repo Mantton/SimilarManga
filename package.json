@@ -1,0 +1,42 @@
+{
+  "name": "mimas",
+  "version": "1.0.0",
+  "description": "Finds similar manga on content sources based on tags",
+  "main": "dist/server.js",
+  "prisma": {
+    "schema": "./prisma/schema.prisma"
+  },
+  "scripts": {
+    "start": "tsc && node ./dist/server.js",
+    "dev": "nodemon",
+    "populate": "tsc && node ./dist/jobs/populate"
+  },
+  "keywords": [
+    "prisma",
+    "suwatte"
+  ],
+  "author": "Mantton",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/compression": "^1.7.2",
+    "@types/cors": "^2.8.12",
+    "@types/express": "^4.17.13",
+    "@types/lodash": "^4.14.181",
+    "prisma": "^3.12.0",
+    "typescript": "^4.6.3"
+  },
+  "dependencies": {
+    "@prisma/client": "^3.12.0",
+    "axios": "^0.26.1",
+    "chalk": "^5.0.1",
+    "compression": "^1.7.4",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.0",
+    "express": "^4.17.3",
+    "helmet": "^5.0.2",
+    "lodash": "^4.17.21",
+    "morgan": "^1.10.0",
+    "redis": "^4.0.6",
+    "winston": "^3.7.2"
+  }
+}
