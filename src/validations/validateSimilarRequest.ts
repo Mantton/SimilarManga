@@ -4,7 +4,7 @@ import { VALID_SOURCES } from "../utils/constants";
 export const validateSimilarRequest: RequestHandler = (req, res, next) => {
   const source = req.params.source;
   const content = req.params.content;
-  const page = req.params.page ?? "1";
+  const page = req.query.page ?? "1";
 
   if (
     typeof page != "string" ||

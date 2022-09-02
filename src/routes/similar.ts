@@ -6,7 +6,7 @@ import { getFromCache } from "../middlewares/cache/similar";
 const router = Router();
 
 router.get(
-  "/:source/:content/:page",
+  "/:source/:content",
   [validateSimilarRequest, getFromCache],
   Controller.handleGetSimilar
 );

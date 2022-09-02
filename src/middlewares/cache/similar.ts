@@ -8,7 +8,7 @@ export const getFromCache: RequestHandler = async (req, res, next) => {
   // Types already validated at this point
   const source = req.params.source as string;
   const content = req.params.content;
-  const page = req.params.page;
+  const page = req.query.page;
 
   if (!store) {
     console.log("Invalid");
