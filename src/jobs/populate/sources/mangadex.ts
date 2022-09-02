@@ -16,7 +16,7 @@ const getResultsForTag = async (
   page: number,
   tagId: string
 ): Promise<StoredContent[]> => {
-  let offset = page * 100;
+  let offset = (page - 1) * 100;
   const response = await axios.get(API_URL + "/manga", {
     params: {
       includes: ["cover_art"],

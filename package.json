@@ -9,7 +9,9 @@
   "scripts": {
     "start": "tsc && node ./dist/server.js",
     "dev": "nodemon",
-    "populate": "tsc && node ./dist/jobs/populate"
+    "populate": "tsc && node ./dist/jobs/populate",
+    "generate": "npx prisma generate",
+    "migrate": "npx prisma migrate dev"
   },
   "keywords": [
     "prisma",
