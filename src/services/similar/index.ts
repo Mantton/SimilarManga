@@ -33,6 +33,7 @@ export const getSimilarTitles = async (
 
   const value: Highlight[] = await database.$queryRawUnsafe(query);
   return {
+    target: content,
     results: value,
     page,
     isLastPage: value.length < 30,

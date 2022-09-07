@@ -1,3 +1,5 @@
+import { Content } from "@prisma/client";
+
 export interface StoredContent {
   sourceId: string;
   contentId: string;
@@ -17,6 +19,7 @@ export interface SimpleTag {
 }
 
 export interface Collection {
+  target: Content;
   results: Highlight[];
   page: number;
   isLastPage: boolean;
