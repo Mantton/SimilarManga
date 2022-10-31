@@ -18,7 +18,7 @@ export interface SimpleTag {
   id: string;
 }
 
-export interface Collection {
+export interface ContentCollection {
   target: Content;
   results: Highlight[];
   page: number;

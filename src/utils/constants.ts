@@ -1,1 +1,4 @@
-export const VALID_SOURCES = ["org.mangadex"];
+import { MangaDex } from "../sources";
+import { Parser } from "../types";
+
+export const sources: Parser[] = [MangaDex];

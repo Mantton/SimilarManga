@@ -9,7 +9,7 @@ export const validateSimilarRequest: RequestHandler = (req, res, next) => {
   if (
     typeof page != "string" ||
     !parseInt(page) ||
-    !VALID_SOURCES.includes(source)
+    !VALID_SOURCES.map((v) => v.id).includes(source)
   ) {
     res.status(400).send({ msg: "bad request" });
     return;

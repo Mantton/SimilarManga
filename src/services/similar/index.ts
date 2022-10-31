@@ -1,27 +1,22 @@
+import { findContent } from "../../database/content";
 import { database } from "../../helpers";
 import { similar } from "../../queries/similar";
-import { Collection, Highlight } from "../../types";
+import { ContentCollection, Highlight } from "../../types";
 import { ErrorMSG } from "../../utils/error";
+import { fetchAndSaveContent } from "../content";
 
 export const getSimilarTitles = async (
   sourceId: string,
   contentId: string,
   page: number
-): Promise<Collection> => {
+): Promise<ContentCollection> => {
   // Get Content
-  const content = await database.content.findUnique({
-    where: {
-      id: {
-        sourceId,
-        contentId,
-      },
-    },
-    include: {
-      tags: true,
-    },
-  });
-
-  if (!content) throw new Error(ErrorMSG.ContentNotFound);
+  let content = await findContent(sourceId, contentId);
+  // Fetch & Save If Not Found
+  if (!content) {
+    content = await fetchAndSaveContent(sourceId, contentId);
+    if (!content) throw ErrorMSG.ContentNotFound;
+  }
 
   // Get Tags
   let tagIds = content.tags.map((v) => v.tagId);
