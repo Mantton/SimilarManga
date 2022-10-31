@@ -1,6 +1,6 @@
 import { ContentRep } from "../../database";
+import { sources } from "../../utils/constants";
 import { logger } from "../../utils/logger";
-import { sources } from "./sources";
 export default async function populate() {
   for (const source of sources) {
     const tags = await source.getTags();

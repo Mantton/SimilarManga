@@ -1,6 +1,6 @@
 import { RequestHandler } from "express";
 import store from "../../helpers/redis";
-import { Collection } from "../../types";
+import { ContentCollection } from "../../types";
 import { contentIdentifier } from "../../utils/idGen";
 import { logger } from "../../utils/logger";
 
@@ -28,7 +28,7 @@ export const getFromCache: RequestHandler = async (req, res, next) => {
 
 export const setToCache = async (
   id: { sourceId: string; contentId: string },
-  collection: Collection
+  collection: ContentCollection
 ) => {
   store
     .setEx(

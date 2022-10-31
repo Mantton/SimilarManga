@@ -1,5 +1,6 @@
 import { RequestHandler } from "express";
-import { VALID_SOURCES } from "../utils/constants";
+import { Parser } from "../types";
+import { sources } from "../utils/constants";
 
 export const validateSimilarRequest: RequestHandler = (req, res, next) => {
   const source = req.params.source;
@@ -9,7 +10,7 @@ export const validateSimilarRequest: RequestHandler = (req, res, next) => {
   if (
     typeof page != "string" ||
     !parseInt(page) ||
-    !VALID_SOURCES.map((v) => v.id).includes(source)
+    !sources.some((v) => v.id == source)
   ) {
     res.status(400).send({ msg: "bad request" });
     return;
